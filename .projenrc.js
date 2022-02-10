@@ -1,0 +1,15 @@
+const { awscdk } = require('projen');
+const project = new awscdk.AwsCdkConstructLibrary({
+  author: 'Matt Wood',
+  authorAddress: 'matthew.wood@objective.com',
+  cdkVersion: '2.12.0',
+  defaultReleaseBranch: 'main',
+  name: 'iac-testing',
+  repositoryUrl: 'https://github.com/matthew.wood/iac-testing.git',
+
+  // deps: [],                /* Runtime dependencies of this module. */
+  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
+  // devDeps: [],             /* Build dependencies for this module. */
+  // packageName: undefined,  /* The "name" in package.json. */
+});
+project.synth();
