@@ -1,5 +1,5 @@
 import { App } from 'aws-cdk-lib';
-import { Annotations } from 'aws-cdk-lib/assertions';
+import { Annotations, Template } from 'aws-cdk-lib/assertions';
 import { TestStack } from './test-stack';
 
 describe('TestingStack', () => {
@@ -8,14 +8,21 @@ describe('TestingStack', () => {
     const stack = new TestStack(app, 'TestStack');
     console.log(Annotations.fromStack(stack));
 
-    Annotations.fromStack(stack).hasInfo('/TestStack',
-      'CloudCostManager Tags are correctly set',
-    );
-    // Template.fromStack(stack).hasResourceProperties('AWS::S3::Bucket', {
-    //   Tags: {
-    //     'cloud-cost-manager-customer-name': 'acme-co',
-    //     'cloud-cost-manager-env-name': 'staging',
-    //   },
-    // });
+    // Annotations.fromStack(stack).hasInfo('/TestStack',
+    //   'CloudCostManager Tags are correctly set',
+    // );
+
+    Template.fromStack(stack).hasResourceProperties('AWS::S3::Bucket', {
+      Tags: [
+        {
+          Key: 'cloud-cost-manager-customer-name',
+          Value: 'acme-co',
+        },
+        {
+          Key: 'cloud-cost-manager-env-name',
+          Value: 'staging',
+        },
+      ],
+    });
   });
 });

@@ -41,7 +41,16 @@ export class CloudCostManager2 extends Construct implements IAspect {
 }
 
 
-export class CloudCostManager implements IAspect {
+export class CloudCostManager {
+  private props: CloudCostManagerProps;
+  constructor(stack: Stack, props: CloudCostManagerProps) {
+    this.props = props;
+    Tags.of(stack).add('cloud-cost-manager-customer-name', this.props.customerName);
+    Tags.of(stack).add('cloud-cost-manager-env-name', this.props.envName);
+  }
+}
+
+export class CloudSecurityManager implements IAspect {
   private error!: string;
   private stack: Stack;
   private props: CloudCostManagerProps;
@@ -52,7 +61,7 @@ export class CloudCostManager implements IAspect {
 
   public visit(node: IConstruct): void {
 
-    if (node instanceof CfnBucket) {
+    if (node instanceof CfnBucket ) {
       if (!node.tags.hasTags()) {
         this.error = 'Bucket tags are not set';
       } else {
@@ -72,6 +81,8 @@ export class CloudCostManager implements IAspect {
     } else {
       Annotations.of(this.stack).addInfo('CloudCostManager Tags are correctly set');
     }
+    console.log(this.props.customerName);
+
   }
 }
 
