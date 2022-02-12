@@ -1,4 +1,4 @@
-import { Annotations, IAspect, Stack, Tags } from 'aws-cdk-lib';
+import { Annotations, IAspect, Stack, Tags, Tokenization } from 'aws-cdk-lib';
 import { CfnBucket } from 'aws-cdk-lib/aws-s3';
 import { IConstruct } from 'constructs';
 
@@ -17,13 +17,28 @@ export interface CloudCostManagerProps {
   envName: string;
 }
 
-export class CloudCostManager {
+export class CloudCostManager implements IAspect {
   private props: CloudCostManagerProps;
   constructor(stack: Stack, props: CloudCostManagerProps) {
     this.props = props;
     Tags.of(stack).add('cloud-cost-manager-customer-name', this.props.customerName);
     Tags.of(stack).add('cloud-cost-manager-env-name', this.props.envName);
     Tags.of(stack).add('cloud-cost-manager-version', '1.0.0');
+  }
+  visit(node: IConstruct): void {
+    if (node instanceof CfnBucket ) {
+      console.log('!!!!!!!!!!!!!!');
+      console.log(node.intelligentTieringConfigurations);
+
+      if (!node.intelligentTieringConfigurations
+        || (!Tokenization.isResolvable(node.intelligentTieringConfigurations)
+            && node.intelligentTieringConfigurations.forEach(element => {
+              console.log('!!!!' + element.toString());
+            }))) {
+
+      }
+
+    }
   }
 }
 
