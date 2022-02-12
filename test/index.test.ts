@@ -22,6 +22,10 @@ describe('TestingStack', () => {
           Key: 'cloud-cost-manager-env-name',
           Value: 'staging',
         },
+        {
+          Key: 'cloud-cost-manager-version',
+          Value: '1.0.0',
+        },
       ],
     });
   });

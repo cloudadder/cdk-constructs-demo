@@ -1,11 +1,7 @@
 import { Annotations, IAspect, Stack, Tags } from 'aws-cdk-lib';
-import { Bucket, CfnBucket } from 'aws-cdk-lib/aws-s3';
-import { Construct, IConstruct } from 'constructs';
+import { CfnBucket } from 'aws-cdk-lib/aws-s3';
+import { IConstruct } from 'constructs';
 
-export interface ross {
-  firstName: 'Ross';
-  lastName: 'Geller';
-};
 
 export interface CloudCostManagerProps {
   /**
@@ -18,28 +14,8 @@ export interface CloudCostManagerProps {
  * The name of the environment.
  * e.g. ```'production'```
  */
-  readonly envName: string;
+  envName: string;
 }
-
-export class CloudCostManager2 extends Construct implements IAspect {
-  props: CloudCostManagerProps;
-  constructor(scope: Construct, id: string, props: CloudCostManagerProps) {
-    super(scope, id);
-    this.props = props;
-  }
-  visit(node: IConstruct): void {
-    if (node instanceof Bucket) {
-      console.log('demo testing !!!!! ' + node);
-      console.log(this.props.customerName);
-
-
-    }
-
-    Tags.of(node).add('cloud-cost-manager-customer-name', this.props.customerName);
-    Tags.of(node).add('cloud-cost-manager-env-name', this.props.envName);
-  }
-}
-
 
 export class CloudCostManager {
   private props: CloudCostManagerProps;
@@ -47,6 +23,7 @@ export class CloudCostManager {
     this.props = props;
     Tags.of(stack).add('cloud-cost-manager-customer-name', this.props.customerName);
     Tags.of(stack).add('cloud-cost-manager-env-name', this.props.envName);
+    Tags.of(stack).add('cloud-cost-manager-version', '1.0.0');
   }
 }
 
