@@ -29,11 +29,6 @@
     "watch": "npx projen watch",
     "projen": "npx projen"
   },
-  "author": {
-    "name": "Matt Wood",
-    "email": "matthew.wood@objective.com",
-    "organization": false
-  },
   "devDependencies": {
     "@types/jest": "^27.4.0",
     "@types/node": "^12",

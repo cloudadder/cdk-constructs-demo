@@ -21,7 +21,7 @@ export interface CloudCostManagerProps {
   readonly envName: string;
 }
 
-export class CloudCostManager extends Construct implements IAspect {
+export class CloudCostManager2 extends Construct implements IAspect {
   props: CloudCostManagerProps;
   constructor(scope: Construct, id: string, props: CloudCostManagerProps) {
     super(scope, id);
@@ -41,11 +41,13 @@ export class CloudCostManager extends Construct implements IAspect {
 }
 
 
-export class TagAspect implements IAspect {
+export class CloudCostManager implements IAspect {
   private error!: string;
   private stack: Stack;
-  constructor(stack: Stack) {
+  private props: CloudCostManagerProps;
+  constructor(stack: Stack, props: CloudCostManagerProps) {
     this.stack = stack;
+    this.props = props;
   }
 
   public visit(node: IConstruct): void {
