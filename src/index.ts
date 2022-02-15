@@ -1,4 +1,4 @@
-import { Annotations, IAspect, Stack, Tags, Tokenization } from 'aws-cdk-lib';
+import { Annotations, IAspect, Stack, Tags } from 'aws-cdk-lib';
 import { CfnBucket } from 'aws-cdk-lib/aws-s3';
 import { IConstruct } from 'constructs';
 
@@ -18,26 +18,31 @@ export interface CloudCostManagerProps {
 }
 
 export class CloudCostManager implements IAspect {
+  private error!: string;
+  private stack: Stack;
   private props: CloudCostManagerProps;
+
   constructor(stack: Stack, props: CloudCostManagerProps) {
+    this.props = props;
+    this.stack = stack;
     this.props = props;
     Tags.of(stack).add('cloud-cost-manager-customer-name', this.props.customerName);
     Tags.of(stack).add('cloud-cost-manager-env-name', this.props.envName);
     Tags.of(stack).add('cloud-cost-manager-version', '1.0.0');
   }
+
   visit(node: IConstruct): void {
     if (node instanceof CfnBucket ) {
-      console.log('!!!!!!!!!!!!!!');
-      console.log(node.intelligentTieringConfigurations);
-
-      if (!node.intelligentTieringConfigurations
-        || (!Tokenization.isResolvable(node.intelligentTieringConfigurations)
-            && node.intelligentTieringConfigurations.forEach(element => {
-              console.log('!!!!' + element.toString());
-            }))) {
-
+      if (!node.intelligentTieringConfigurations) {
+        this.error = 'Bucket requires intelligent tiering';
+      } else {
+        node.tags.setTag('cloud-cost-manager-check-intelligent-tiering', 'pass');
       }
-
+    }
+    if (this.error) {
+      Annotations.of(this.stack).addError(this.error);
+    } else {
+      Annotations.of(this.stack).addInfo('CloudCostManager validation passed');
     }
   }
 }
@@ -71,7 +76,7 @@ export class CloudSecurityManager implements IAspect {
     if (this.error) {
       Annotations.of(this.stack).addError(this.error);
     } else {
-      Annotations.of(this.stack).addInfo('CloudCostManager Tags are correctly set');
+      Annotations.of(this.stack).addInfo('CloudSecurityManager validation passed');
     }
     console.log(this.props.customerName);
 
