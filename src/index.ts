@@ -47,40 +47,4 @@ export class CloudCostManager implements IAspect {
   }
 }
 
-export class CloudSecurityManager implements IAspect {
-  private error!: string;
-  private stack: Stack;
-  private props: CloudCostManagerProps;
-  constructor(stack: Stack, props: CloudCostManagerProps) {
-    this.stack = stack;
-    this.props = props;
-  }
-
-  public visit(node: IConstruct): void {
-
-    if (node instanceof CfnBucket ) {
-      if (!node.tags.hasTags()) {
-        this.error = 'Bucket tags are not set';
-      } else {
-        var tags: string[] = [];
-        for (let tagObject of node.tags.renderTags()) {
-          tags.push(tagObject.key);
-        }
-
-        if (!(tags.includes('cloud-cost-manager-customer-name'))) {
-          this.error = 'Bucket tags are not set';
-        }
-      }
-    }
-
-    if (this.error) {
-      Annotations.of(this.stack).addError(this.error);
-    } else {
-      Annotations.of(this.stack).addInfo('CloudSecurityManager validation passed');
-    }
-    console.log(this.props.customerName);
-
-  }
-}
-
 
