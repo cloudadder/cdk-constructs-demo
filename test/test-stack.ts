@@ -32,6 +32,5 @@ export class TestStackWithErrors extends Stack {
       customerName: 'acme-co',
       envName: 'staging',
     }));
-
   }
 }

@@ -6,7 +6,6 @@ describe('Cloud Cost Manager', () => {
   test('confirm cloud cost management is implemented', () => {
     const app = new App();
     const stack = new TestStack(app, 'TestStack');
-    console.log(Annotations.fromStack(stack));
 
     Annotations.fromStack(stack).hasInfo('/TestStack',
       'CloudCostManager validation passed',
@@ -37,7 +36,6 @@ describe('Cloud Cost Manager', () => {
   test('confirm cloud cost management reject stack', () => {
     const app = new App();
     const stack = new TestStackWithErrors(app, 'TestStack');
-    console.log(Annotations.fromStack(stack));
 
     Annotations.fromStack(stack).hasError('/TestStack',
       'Bucket requires intelligent tiering',
