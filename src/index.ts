@@ -20,14 +20,11 @@ export interface CloudCostManagerProps {
 export class CloudCostManager implements IAspect {
   private error!: string;
   private stack: Stack;
-  private props: CloudCostManagerProps;
 
   constructor(stack: Stack, props: CloudCostManagerProps) {
-    this.props = props;
     this.stack = stack;
-    this.props = props;
-    Tags.of(stack).add('cloud-cost-manager-customer-name', this.props.customerName);
-    Tags.of(stack).add('cloud-cost-manager-env-name', this.props.envName);
+    Tags.of(stack).add('cloud-cost-manager-customer-name', props.customerName);
+    Tags.of(stack).add('cloud-cost-manager-env-name', props.envName);
     Tags.of(stack).add('cloud-cost-manager-version', '1.0.0');
   }
 
