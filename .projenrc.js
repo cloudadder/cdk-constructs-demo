@@ -1,6 +1,6 @@
 const { awscdk } = require('projen');
 const project = new awscdk.AwsCdkConstructLibrary({
-  cdkVersion: '2.12.0',
+  cdkVersion: '2.13.0',
   defaultReleaseBranch: 'main',
   name: 'iac-testing',
   repositoryUrl: 'https://github.com/matthew.wood/iac-testing.git',
