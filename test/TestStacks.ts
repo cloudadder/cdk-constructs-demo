@@ -40,12 +40,9 @@ export class ExistingBucketWithErrors extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const template = new CfnInclude(this, 'ExistingBucket', {
+    new CfnInclude(this, 'ExistingBucket', {
       templateFile: 'test/ExistingBucket.json',
     });
-
-    const cfnBucket = template.getResource('ExistingBucket') as CfnBucket;
-    Bucket.fromBucketName(this, 'Bucket', cfnBucket.ref);
 
     Aspects.of(this).add(new CloudCostManager(this, {
       customerName: 'acme-co',
