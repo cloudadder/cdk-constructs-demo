@@ -8,13 +8,13 @@ export interface CloudCostManagerProps {
    * The name of the customer that the stack is for.
    * e.g. ```'acme-co'```
    */
-  customerName: string;
+  readonly customerName: string;
 
   /**
  * The name of the environment.
  * e.g. ```'production'```
  */
-  envName: string;
+  readonly envName: string;
 }
 
 export class CloudCostManager implements IAspect {

@@ -1,5 +1,6 @@
 const { awscdk } = require('projen');
 const project = new awscdk.AwsCdkConstructLibrary({
+  author: 'cloudops',
   cdkVersion: '2.13.0',
   defaultReleaseBranch: 'main',
   name: 'iac-testing',

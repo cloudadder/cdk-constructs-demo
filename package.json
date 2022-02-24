@@ -29,6 +29,10 @@
     "watch": "npx projen watch",
     "projen": "npx projen"
   },
+  "author": {
+    "name": "cloudops",
+    "organization": false
+  },
   "devDependencies": {
     "@types/jest": "^27.4.0",
     "@types/node": "^12",

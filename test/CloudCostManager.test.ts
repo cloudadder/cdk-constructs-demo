@@ -59,4 +59,11 @@ describe('Cloud Cost Manager', () => {
       'CloudCostManager validation passed',
     );
   });
+
+  test('Snapshot', () => {
+    const app = new App();
+    const stack = new TestStack(app, 'test');
+
+    expect(app.synth().getStackArtifact(stack.artifactId).template).toMatchSnapshot();
+  });
 });

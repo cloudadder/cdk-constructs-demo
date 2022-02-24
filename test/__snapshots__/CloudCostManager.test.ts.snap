@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cloud Cost Manager Snapshot 1`] = `
+Object {
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "testbucketE6E05ABE": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "IntelligentTieringConfigurations": Array [
+          Object {
+            "Id": "test-tier",
+            "Status": "Enabled",
+            "Tierings": Array [],
+          },
+        ],
+        "Tags": Array [
+          Object {
+            "Key": "cloud-cost-manager-check-intelligent-tiering",
+            "Value": "pass",
+          },
+          Object {
+            "Key": "cloud-cost-manager-customer-name",
+            "Value": "acme-co",
+          },
+          Object {
+            "Key": "cloud-cost-manager-env-name",
+            "Value": "staging",
+          },
+          Object {
+            "Key": "cloud-cost-manager-version",
+            "Value": "1.0.0",
+          },
+        ],
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;

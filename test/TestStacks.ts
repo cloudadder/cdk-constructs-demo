@@ -1,4 +1,4 @@
-import { Aspects, Duration, Stack, StackProps } from 'aws-cdk-lib';
+import { Aspects, Stack, StackProps } from 'aws-cdk-lib';
 import { Bucket, CfnBucket, IntelligentTieringConfiguration } from 'aws-cdk-lib/aws-s3';
 import { CfnInclude } from 'aws-cdk-lib/cloudformation-include';
 import { Construct } from 'constructs';
@@ -11,7 +11,6 @@ export class TestStack extends Stack {
     new Bucket(this, 'test-bucket', {
       intelligentTieringConfigurations: [{
         name: 'test-tier',
-        deepArchiveAccessTierTime: Duration.days(180),
       }],
     });
 
@@ -62,7 +61,6 @@ export class ExistingBucketAfterAddingTiering extends Stack {
     const cfnBucket = template.getResource('ExistingBucket') as CfnBucket;
     const intelligentTieringConfiguration: IntelligentTieringConfiguration = {
       name: 'test-tier',
-      deepArchiveAccessTierTime: Duration.days(180),
     };
     cfnBucket.addPropertyOverride('IntelligentTieringConfiguration', intelligentTieringConfiguration);
 
