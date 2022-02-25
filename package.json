@@ -30,7 +30,7 @@
     "projen": "npx projen"
   },
   "author": {
-    "name": "cloudops",
+    "name": "cloudcost",
     "organization": false
   },
   "devDependencies": {

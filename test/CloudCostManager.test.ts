@@ -1,6 +1,7 @@
-import { App } from 'aws-cdk-lib';
+import { App, Aspects } from 'aws-cdk-lib';
 import { Annotations, Template } from 'aws-cdk-lib/assertions';
-import { ExistingBucketAfterAddingTiering, ExistingBucketWithErrors, TestStack, TestStackWithErrors } from './TestStacks';
+import { CloudCostManager } from '../src';
+import { ExistingBucketAfterAddingTiering, ExistingBucketWithErrors, TestStack, TestStackWithErrors, TestStackWithoutAspect } from './TestStacks';
 
 describe('Cloud Cost Manager', () => {
   test('confirm cloud cost management is implemented', () => {
@@ -54,6 +55,20 @@ describe('Cloud Cost Manager', () => {
   test('confirm cloud cost management is implemented', () => {
     const app = new App();
     const stack = new ExistingBucketAfterAddingTiering(app, 'TestStack');
+
+    Annotations.fromStack(stack).hasInfo('/TestStack',
+      'CloudCostManager validation passed',
+    );
+  });
+
+  test('confirm aspect works across app rather than just stack', () => {
+    const app = new App();
+    const stack = new TestStackWithoutAspect(app, 'TestStack');
+
+    Aspects.of(app).add(new CloudCostManager(stack, {
+      customerName: 'acme-co',
+      envName: 'staging',
+    }));
 
     Annotations.fromStack(stack).hasInfo('/TestStack',
       'CloudCostManager validation passed',

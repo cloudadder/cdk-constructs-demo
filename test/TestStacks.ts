@@ -18,7 +18,6 @@ export class TestStack extends Stack {
       customerName: 'acme-co',
       envName: 'staging',
     }));
-
   }
 }
 
@@ -68,5 +67,11 @@ export class ExistingBucketAfterAddingTiering extends Stack {
       customerName: 'acme-co',
       envName: 'staging',
     }));
+  }
+}
+
+export class TestStackWithoutAspect extends Stack {
+  constructor(scope: Construct, id: string, props: StackProps = {}) {
+    super(scope, id, props);
   }
 }
