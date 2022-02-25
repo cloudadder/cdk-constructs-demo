@@ -15,19 +15,19 @@ describe('Cloud Cost Manager', () => {
     Template.fromStack(stack).hasResourceProperties('AWS::S3::Bucket', {
       Tags: [
         {
-          Key: 'cloud-cost-manager-check-intelligent-tiering',
+          Key: 'cloud-cost-manager:check:intelligent-tiering',
           Value: 'pass',
         },
         {
-          Key: 'cloud-cost-manager-customer-name',
+          Key: 'cloud-cost-manager:customer-name',
           Value: 'acme-co',
         },
         {
-          Key: 'cloud-cost-manager-env-name',
+          Key: 'cloud-cost-manager:env-name',
           Value: 'staging',
         },
         {
-          Key: 'cloud-cost-manager-version',
+          Key: 'cloud-cost-manager:version',
           Value: '1.0.0',
         },
       ],

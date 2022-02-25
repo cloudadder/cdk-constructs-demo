@@ -23,9 +23,9 @@ export class CloudCostManager implements IAspect {
 
   constructor(stack: Stack, props: CloudCostManagerProps) {
     this.stack = stack;
-    Tags.of(stack).add('cloud-cost-manager-customer-name', props.customerName);
-    Tags.of(stack).add('cloud-cost-manager-env-name', props.envName);
-    Tags.of(stack).add('cloud-cost-manager-version', '1.0.0');
+    Tags.of(stack).add('cloud-cost-manager:customer-name', props.customerName);
+    Tags.of(stack).add('cloud-cost-manager:env-name', props.envName);
+    Tags.of(stack).add('cloud-cost-manager:version', '1.0.0');
   }
 
   visit(node: IConstruct): void {
@@ -33,7 +33,7 @@ export class CloudCostManager implements IAspect {
       if (!node.intelligentTieringConfigurations) {
         this.error = 'Bucket requires intelligent tiering';
       } else {
-        node.tags.setTag('cloud-cost-manager-check-intelligent-tiering', 'pass');
+        node.tags.setTag('cloud-cost-manager:check:intelligent-tiering', 'pass');
       }
     }
     if (this.error) {
