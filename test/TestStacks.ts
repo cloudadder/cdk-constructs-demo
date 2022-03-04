@@ -1,4 +1,6 @@
 import { Aspects, Stack, StackProps } from 'aws-cdk-lib';
+import { Vpc } from 'aws-cdk-lib/aws-ec2';
+import { DatabaseInstance, DatabaseInstanceEngine, SqlServerEngineVersion } from 'aws-cdk-lib/aws-rds';
 import { Bucket, CfnBucket, IntelligentTieringConfiguration } from 'aws-cdk-lib/aws-s3';
 import { CfnInclude } from 'aws-cdk-lib/cloudformation-include';
 import { Construct } from 'constructs';
@@ -62,6 +64,25 @@ export class ExistingBucketAfterAddingTiering extends Stack {
       name: 'test-tier',
     };
     cfnBucket.addPropertyOverride('IntelligentTieringConfiguration', intelligentTieringConfiguration);
+
+    Aspects.of(this).add(new CloudCostManager(this, {
+      customerName: 'acme-co',
+      envName: 'staging',
+    }));
+  }
+}
+
+export class TestStackWithDatabase extends TestStack {
+  constructor(scope: Construct, id: string, props: StackProps = {}) {
+    super(scope, id, props);
+
+    const vpc = new Vpc(this, 'TestVPC', {
+      cidr: '10.0.0.0/16',
+    });
+    new DatabaseInstance(this, 'DatabaseInstance', {
+      engine: DatabaseInstanceEngine.sqlServerEe({ version: SqlServerEngineVersion.VER_14_00_3356_20_V1 }),
+      vpc,
+    });
 
     Aspects.of(this).add(new CloudCostManager(this, {
       customerName: 'acme-co',

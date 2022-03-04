@@ -1,7 +1,7 @@
 import { App, Aspects } from 'aws-cdk-lib';
 import { Annotations, Template } from 'aws-cdk-lib/assertions';
 import { CloudCostManager } from '../src';
-import { ExistingBucketAfterAddingTiering, ExistingBucketWithErrors, TestStack, TestStackWithErrors, TestStackWithoutAspect } from './TestStacks';
+import { ExistingBucketAfterAddingTiering, ExistingBucketWithErrors, TestStack, TestStackWithDatabase, TestStackWithErrors, TestStackWithoutAspect } from './TestStacks';
 
 describe('Cloud Cost Manager', () => {
   test('confirm cloud cost management is implemented', () => {
@@ -36,10 +36,16 @@ describe('Cloud Cost Manager', () => {
 
   test('confirm cloud cost management reject stack', () => {
     const app = new App();
-    const stack = new TestStackWithErrors(app, 'TestStack');
+    var stack = new TestStackWithErrors(app, 'TestStack');
 
     Annotations.fromStack(stack).hasError('/TestStack',
       'Bucket requires intelligent tiering',
+    );
+
+    stack = new TestStackWithDatabase(app, 'TestStackWithDatabase');
+
+    Annotations.fromStack(stack).hasError('/TestStackWithDatabase',
+      'Do not use MSSQL Enterprise Edition, it is too expensive.',
     );
   });
 

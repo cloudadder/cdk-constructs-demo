@@ -1,4 +1,5 @@
 import { Annotations, IAspect, Stack, Tags } from 'aws-cdk-lib';
+import { DatabaseInstance } from 'aws-cdk-lib/aws-rds';
 import { CfnBucket } from 'aws-cdk-lib/aws-s3';
 import { IConstruct } from 'constructs';
 
@@ -40,6 +41,16 @@ export class CloudCostManager implements IAspect {
       Annotations.of(this.stack).addError(this.error);
     } else {
       Annotations.of(this.stack).addInfo('CloudCostManager validation passed');
+    }
+
+    if (node instanceof DatabaseInstance ) {
+      const engine = Stack.of(node).resolve(node.engine);
+      console.log(engine.engineType);
+
+
+      if (engine.engineType === 'sqlserver-ee') {
+        Annotations.of(this.stack).addError('Do not use MSSQL Enterprise Edition, it is too expensive.');
+      }
     }
   }
 }
