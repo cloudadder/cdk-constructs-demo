@@ -47,6 +47,10 @@ describe('Cloud Cost Manager', () => {
     Annotations.fromStack(stack).hasError('/TestStackWithDatabase',
       'Do not use MSSQL Enterprise Edition, it is too expensive.',
     );
+
+    Annotations.fromStack(stack).hasError('/TestStackWithDatabase',
+      'Multi-AZ is not supported in Non Prodcution Environments.',
+    );
   });
 
   test('confirm cloud cost management reject stack when using existing cfn template', () => {

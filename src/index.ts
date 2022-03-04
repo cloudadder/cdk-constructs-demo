@@ -1,5 +1,5 @@
 import { Annotations, IAspect, Stack, Tags } from 'aws-cdk-lib';
-import { DatabaseInstance } from 'aws-cdk-lib/aws-rds';
+import { CfnDBInstance, DatabaseInstance } from 'aws-cdk-lib/aws-rds';
 import { CfnBucket } from 'aws-cdk-lib/aws-s3';
 import { IConstruct } from 'constructs';
 
@@ -21,15 +21,19 @@ export interface CloudCostManagerProps {
 export class CloudCostManager implements IAspect {
   private error!: string;
   private stack: Stack;
+  private props: CloudCostManagerProps;
 
   constructor(stack: Stack, props: CloudCostManagerProps) {
     this.stack = stack;
+    this.props = props;
     Tags.of(stack).add('cloud-cost-manager:customer-name', props.customerName);
     Tags.of(stack).add('cloud-cost-manager:env-name', props.envName);
     Tags.of(stack).add('cloud-cost-manager:version', '1.0.0');
   }
 
   visit(node: IConstruct): void {
+
+    //Bucket Check
     if (node instanceof CfnBucket ) {
       if (!node.intelligentTieringConfigurations) {
         this.error = 'Bucket requires intelligent tiering';
@@ -43,13 +47,18 @@ export class CloudCostManager implements IAspect {
       Annotations.of(this.stack).addInfo('CloudCostManager validation passed');
     }
 
+    //Database Check
     if (node instanceof DatabaseInstance ) {
       const engine = Stack.of(node).resolve(node.engine);
-      console.log(engine.engineType);
-
 
       if (engine.engineType === 'sqlserver-ee') {
         Annotations.of(this.stack).addError('Do not use MSSQL Enterprise Edition, it is too expensive.');
+      }
+    }
+
+    if (node instanceof CfnDBInstance ) {
+      if (this.props.envName !== 'production' && node.multiAz) {
+        Annotations.of(this.stack).addError('Multi-AZ is not supported in Non Prodcution Environments.');
       }
     }
   }

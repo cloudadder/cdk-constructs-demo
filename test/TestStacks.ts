@@ -82,11 +82,12 @@ export class TestStackWithDatabase extends TestStack {
     new DatabaseInstance(this, 'DatabaseInstance', {
       engine: DatabaseInstanceEngine.sqlServerEe({ version: SqlServerEngineVersion.VER_14_00_3356_20_V1 }),
       vpc,
+      multiAz: true,
     });
 
     Aspects.of(this).add(new CloudCostManager(this, {
       customerName: 'acme-co',
-      envName: 'staging',
+      envName: 'non-production',
     }));
   }
 }
