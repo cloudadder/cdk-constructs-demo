@@ -28,7 +28,6 @@ export class CloudCostManager implements IAspect {
     this.props = props;
     Tags.of(stack).add('cloud-cost-manager:customer-name', props.customerName);
     Tags.of(stack).add('cloud-cost-manager:env-name', props.envName);
-    Tags.of(stack).add('cloud-cost-manager:version', '1.0.0');
   }
 
   visit(node: IConstruct): void {
@@ -36,30 +35,38 @@ export class CloudCostManager implements IAspect {
     //Bucket Check
     if (node instanceof CfnBucket ) {
       if (!node.intelligentTieringConfigurations) {
-        this.error = 'Bucket requires intelligent tiering';
+        this.error = 'Buckets require intelligent tiering';
       } else {
-        node.tags.setTag('cloud-cost-manager:check:intelligent-tiering', 'pass');
+        node.tags.setTag('cloud-cost-manager:check:bucket', 'pass');
       }
-    }
-    if (this.error) {
-      Annotations.of(this.stack).addError(this.error);
-    } else {
-      Annotations.of(this.stack).addInfo('CloudCostManager validation passed');
     }
 
     //Database Check
+    var databaseError : boolean = false;
     if (node instanceof DatabaseInstance ) {
       const engine = Stack.of(node).resolve(node.engine);
 
       if (engine.engineType === 'sqlserver-ee') {
-        Annotations.of(this.stack).addError('Do not use MSSQL Enterprise Edition, it is too expensive.');
+        databaseError = true;
+        this.error = 'Do not use MSSQL Enterprise Edition, it is too expensive.';
+      }
+    }
+    if (node instanceof CfnDBInstance ) {
+      if (this.props.envName !== 'production' && node.multiAz) {
+        databaseError = true;
+        this.error += 'Multi-AZ is not supported in Non Prodcution Environments.';
+      }
+      if (!databaseError) {
+        node.tags.setTag('cloud-cost-manager:check:database', 'pass');
       }
     }
 
-    if (node instanceof CfnDBInstance ) {
-      if (this.props.envName !== 'production' && node.multiAz) {
-        Annotations.of(this.stack).addError('Multi-AZ is not supported in Non Prodcution Environments.');
-      }
+    //Add All Errors
+    if (this.error) {
+      Annotations.of(this.stack).addError(this.error);
+
+    } else {
+      Annotations.of(this.stack).addInfo('CloudCostManager validation passed');
     }
   }
 }

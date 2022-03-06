@@ -198,6 +198,38 @@
         }
       ]
     },
+    "test:Bucket": {
+      "name": "test:Bucket",
+      "steps": [
+        {
+          "exec": "jest --testNamePattern=Bucket"
+        }
+      ]
+    },
+    "test:BucketTestNegitive": {
+      "name": "test:BucketTestNegitive",
+      "steps": [
+        {
+          "exec": "jest --testNamePattern=BucketTestNegitive"
+        }
+      ]
+    },
+    "test:Database": {
+      "name": "test:Database",
+      "steps": [
+        {
+          "exec": "jest --testNamePattern=Database"
+        }
+      ]
+    },
+    "test:DatabaseTestNegitive": {
+      "name": "test:DatabaseTestNegitive",
+      "steps": [
+        {
+          "exec": "jest --testNamePattern=DatabaseTestNegitive"
+        }
+      ]
+    },
     "test:update": {
       "name": "test:update",
       "description": "Update jest snapshots",

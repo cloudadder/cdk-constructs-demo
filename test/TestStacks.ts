@@ -6,7 +6,19 @@ import { CfnInclude } from 'aws-cdk-lib/cloudformation-include';
 import { Construct } from 'constructs';
 import { CloudCostManager } from '../src';
 
-export class TestStack extends Stack {
+// export class TestStackTags extends Stack {
+//   constructor(scope: Construct, id: string, props: StackProps = {}) {
+//     super(scope, id, props);
+
+
+//     Aspects.of(this).add(new CloudCostManager(this, {
+//       customerName: 'acme-co',
+//       envName: 'staging',
+//     }));
+//   }
+// }
+
+export class TestStackBucket extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
 
@@ -23,7 +35,7 @@ export class TestStack extends Stack {
   }
 }
 
-export class TestStackWithErrors extends Stack {
+export class TestStackBucketWithErrors extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
 
@@ -72,7 +84,7 @@ export class ExistingBucketAfterAddingTiering extends Stack {
   }
 }
 
-export class TestStackWithDatabase extends TestStack {
+export class TestStackWithDatabaseNegitive extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
 
@@ -92,8 +104,21 @@ export class TestStackWithDatabase extends TestStack {
   }
 }
 
-export class TestStackWithoutAspect extends Stack {
+export class TestStackWithDatabasePositive extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
+
+    const vpc = new Vpc(this, 'TestVPC', {
+      cidr: '10.0.0.0/16',
+    });
+    new DatabaseInstance(this, 'DatabaseInstance', {
+      engine: DatabaseInstanceEngine.sqlServerSe({ version: SqlServerEngineVersion.VER_14_00_3356_20_V1 }),
+      vpc,
+    });
+
+    Aspects.of(this).add(new CloudCostManager(this, {
+      customerName: 'acme-co',
+      envName: 'production',
+    }));
   }
 }

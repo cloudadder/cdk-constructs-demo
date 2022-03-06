@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Cloud Cost Manager Snapshot 1`] = `
+exports[`Cloud Cost Manager Bucket Snapshot Bucket 1`] = `
 Object {
   "Parameters": Object {
     "BootstrapVersion": Object {
@@ -22,7 +22,7 @@ Object {
         ],
         "Tags": Array [
           Object {
-            "Key": "cloud-cost-manager:check:intelligent-tiering",
+            "Key": "cloud-cost-manager:check:bucket",
             "Value": "pass",
           },
           Object {
@@ -32,10 +32,6 @@ Object {
           Object {
             "Key": "cloud-cost-manager:env-name",
             "Value": "staging",
-          },
-          Object {
-            "Key": "cloud-cost-manager:version",
-            "Value": "1.0.0",
           },
         ],
       },

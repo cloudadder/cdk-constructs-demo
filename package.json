@@ -2,7 +2,7 @@
   "name": "iac-testing",
   "repository": {
     "type": "git",
-    "url": "https://github.com/matthew.wood/iac-testing.git"
+    "url": "https://github.com/tinytelly/iac-testing.git"
   },
   "scripts": {
     "build": "npx projen build",
@@ -21,6 +21,10 @@
     "pre-compile": "npx projen pre-compile",
     "release": "npx projen release",
     "test": "npx projen test",
+    "test:Bucket": "npx projen test:Bucket",
+    "test:BucketTestNegitive": "npx projen test:BucketTestNegitive",
+    "test:Database": "npx projen test:Database",
+    "test:DatabaseTestNegitive": "npx projen test:DatabaseTestNegitive",
     "test:update": "npx projen test:update",
     "test:watch": "npx projen test:watch",
     "unbump": "npx projen unbump",
@@ -67,6 +71,9 @@
   "license": "Apache-2.0",
   "version": "0.0.0",
   "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.ts?(x)",
       "<rootDir>/(test|src)/**/?(*.)+(spec|test).ts?(x)"
