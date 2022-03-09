@@ -6,18 +6,6 @@ import { CfnInclude } from 'aws-cdk-lib/cloudformation-include';
 import { Construct } from 'constructs';
 import { CloudCostManager } from '../src';
 
-// export class TestStackTags extends Stack {
-//   constructor(scope: Construct, id: string, props: StackProps = {}) {
-//     super(scope, id, props);
-
-
-//     Aspects.of(this).add(new CloudCostManager(this, {
-//       customerName: 'acme-co',
-//       envName: 'staging',
-//     }));
-//   }
-// }
-
 export class TestStackBucket extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);

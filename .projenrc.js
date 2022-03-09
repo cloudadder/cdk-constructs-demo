@@ -1,17 +1,21 @@
 const { awscdk } = require('projen');
 const project = new awscdk.AwsCdkConstructLibrary({
-  author: 'cloudcost',
-  cdkVersion: '2.13.0',
+  author: 'cloudadder',
+  authorAddress: 'cloudadder.com@gmail.com',
+  cdkVersion: '2.15.0',
   defaultReleaseBranch: 'main',
-  name: 'iac-testing',
-  repositoryUrl: 'https://github.com/tinytelly/iac-testing.git',
-  releaseToNpm: false,
-  github: false,
+  dependabot: false,
+  name: 'cdk-constructs-demo',
+  repositoryUrl: 'https://github.com/cloudadder/cdk-constructs-demo',
   jestOptions: {
     jestConfig: {
       collectCoverageFrom: ['src/**/*.ts'],
     },
   },
+  homepage: 'https://github.com/cloudadder/cdk-constructs-demo',
+  name: '@cloudadder/cdk-constructs-demo',
+  npmAccess: 'public',
+  repositoryUrl: 'https://github.com/cloudadder/cdk-constructs-demo.git',
 });
 
 //Bucket Tests
