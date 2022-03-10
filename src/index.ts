@@ -1,4 +1,5 @@
 import { Annotations, IAspect, Stack, Tags } from 'aws-cdk-lib';
+import { CfnDistribution } from 'aws-cdk-lib/aws-cloudfront';
 import { CfnDBInstance, DatabaseInstance } from 'aws-cdk-lib/aws-rds';
 import { CfnBucket } from 'aws-cdk-lib/aws-s3';
 import { IConstruct } from 'constructs';
@@ -59,6 +60,13 @@ export class CloudCostManager implements IAspect {
       if (!databaseError) {
         node.tags.setTag('cloud-cost-manager:check:database', 'pass');
       }
+    }
+
+    //CloudFront Check
+    if (node instanceof CfnDistribution) {
+      console.log('The Minimum Security Policy all CloudFront Distributions is TLSv1.2_2021');
+      node.addPropertyOverride('DistributionConfig.ViewerCertificate.MinimumProtocolVersion', 'TLSv1.2_2021');
+      node.tags.setTag('cloud-cost-manager:check:cloudfront', 'pass');
     }
 
     //Add All Errors

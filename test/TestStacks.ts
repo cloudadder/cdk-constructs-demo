@@ -1,5 +1,8 @@
 import { Aspects, Stack, StackProps } from 'aws-cdk-lib';
+import { Distribution, LambdaEdgeEventType, SecurityPolicyProtocol } from 'aws-cdk-lib/aws-cloudfront';
+import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
 import { Vpc } from 'aws-cdk-lib/aws-ec2';
+import { Version } from 'aws-cdk-lib/aws-lambda';
 import { DatabaseInstance, DatabaseInstanceEngine, SqlServerEngineVersion } from 'aws-cdk-lib/aws-rds';
 import { Bucket, CfnBucket, IntelligentTieringConfiguration } from 'aws-cdk-lib/aws-s3';
 import { CfnInclude } from 'aws-cdk-lib/cloudformation-include';
@@ -107,6 +110,34 @@ export class TestStackWithDatabasePositive extends Stack {
     Aspects.of(this).add(new CloudCostManager(this, {
       customerName: 'acme-co',
       envName: 'production',
+    }));
+  }
+}
+
+export class TestStackCloudFront extends Stack {
+  constructor(scope: Construct, id: string, props: StackProps = {}) {
+    super(scope, id, props);
+
+    var bucket = new Bucket(this, 'TestBucket');
+    var functionVersion = Version.fromVersionArn(this, 'Version', 'arn:aws:lambda:us-east-1:123456789012:function:functionName:1');
+
+    new Distribution(this, 'TestDistro', {
+      minimumProtocolVersion: SecurityPolicyProtocol.TLS_V1_2_2019,
+      defaultBehavior: {
+        origin: new S3Origin(bucket),
+        edgeLambdas: [
+          {
+            functionVersion,
+            eventType: LambdaEdgeEventType.VIEWER_REQUEST,
+          },
+        ],
+      },
+    });
+
+
+    Aspects.of(this).add(new CloudCostManager(this, {
+      customerName: 'acme-co',
+      envName: 'staging',
     }));
   }
 }
