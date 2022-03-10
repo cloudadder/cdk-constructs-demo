@@ -13,10 +13,16 @@ export interface CloudCostManagerProps {
   readonly customerName: string;
 
   /**
- * The name of the environment.
- * e.g. ```'production'```
- */
+   * The name of the environment.
+   * e.g. ```'production'```
+   */
   readonly envName: string;
+
+  /**
+   * The name of the product that the stack intended.
+   * e.g. ```'front-end'```
+   */
+  //  readonly productName: string;
 }
 
 export class CloudCostManager implements IAspect {
@@ -29,12 +35,13 @@ export class CloudCostManager implements IAspect {
     this.props = props;
     Tags.of(stack).add('cloud-cost-manager:customer-name', props.customerName);
     Tags.of(stack).add('cloud-cost-manager:env-name', props.envName);
+    //Tags.of(stack).add('cloud-cost-manager:product-name', props.productName);
   }
 
   visit(node: IConstruct): void {
 
     //Bucket Check
-    if (node instanceof CfnBucket ) {
+    if (node instanceof CfnBucket) {
       if (!node.intelligentTieringConfigurations) {
         this.error = 'Buckets require intelligent tiering';
       } else {
@@ -43,8 +50,8 @@ export class CloudCostManager implements IAspect {
     }
 
     //Database Check
-    var databaseError : boolean = false;
-    if (node instanceof DatabaseInstance ) {
+    var databaseError: boolean = false;
+    if (node instanceof DatabaseInstance) {
       const engine = Stack.of(node).resolve(node.engine);
 
       if (engine.engineType === 'sqlserver-ee') {
@@ -52,7 +59,7 @@ export class CloudCostManager implements IAspect {
         this.error = 'Do not use MSSQL Enterprise Edition, it is too expensive.';
       }
     }
-    if (node instanceof CfnDBInstance ) {
+    if (node instanceof CfnDBInstance) {
       if (this.props.envName !== 'production' && node.multiAz) {
         databaseError = true;
         this.error += 'Multi-AZ is not supported in Non Prodcution Environments.';
@@ -64,8 +71,9 @@ export class CloudCostManager implements IAspect {
 
     //CloudFront Check
     if (node instanceof CfnDistribution) {
-      console.log('The Minimum Security Policy all CloudFront Distributions is TLSv1.2_2021');
       node.addPropertyOverride('DistributionConfig.ViewerCertificate.MinimumProtocolVersion', 'TLSv1.2_2021');
+
+      Annotations.of(this.stack).addInfo('The Minimum Security Policy all CloudFront Distributions is TLSv1.2_2021');
       node.tags.setTag('cloud-cost-manager:check:cloudfront', 'pass');
     }
 
