@@ -36,12 +36,13 @@ export class CloudCostManagerStack extends Stack {
 ```
 
 #### Handy
-To update npm libraries, run:
+* To update npm libraries, run:
 ```console
 npm outdated
 npx npm-check-updates -u
 npm install
 ```
+* To enable github to raise pull requests then in github create a [token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) and then a [secret](https://github.com/Azure/actions-workflow-samples/blob/master/assets/create-secrets-for-GitHub-workflows.md) for the repo called `PROJEN_GITHUB_TOKEN`.
 
 #### Links
 * [npmjs](https://www.npmjs.com/package/@cloudadder/cdk-constructs-demo)
