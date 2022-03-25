@@ -94,7 +94,7 @@ new CloudCostManager(stack: Stack, props: CloudCostManagerProps)
 ##### `visit` <a name="visit" id="@cloudadder/cdk-constructs-demo.CloudCostManager.visit"></a>
 
 ```typescript
-public visit(node: IConstruct)
+public visit(node: IConstruct): void
 ```
 
 All aspects can visit an IConstruct.

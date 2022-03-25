@@ -35,6 +35,14 @@ export class CloudCostManagerStack extends Stack {
 }
 ```
 
+#### Handy
+To update npm libraries, run:
+```console
+npm outdated
+npx npm-check-updates -u
+npm install
+```
+
 #### Links
 * [npmjs](https://www.npmjs.com/package/@cloudadder/cdk-constructs-demo)
 * [cdk constructs.dev](https://constructs.dev/packages/@cloudadder/cdk-constructs-demo)
