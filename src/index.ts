@@ -62,7 +62,7 @@ export class CloudCostManager implements IAspect {
     if (node instanceof CfnDBInstance) {
       if (this.props.envName !== 'production' && node.multiAz) {
         databaseError = true;
-        this.error += 'Multi-AZ is not supported in Non Prodcution Environments.';
+        this.error += 'Multi-AZ is not supported in Non Production Environments.';
       }
       if (!databaseError) {
         node.tags.setTag('cloud-cost-manager:check:database', 'pass');

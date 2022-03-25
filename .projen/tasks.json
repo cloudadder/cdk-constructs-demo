@@ -231,6 +231,14 @@
         }
       ]
     },
+    "test:CloudFrontTestPositive": {
+      "name": "test:CloudFrontTestPositive",
+      "steps": [
+        {
+          "exec": "jest --testNamePattern=CloudFrontTestPositive"
+        }
+      ]
+    },
     "test:Database": {
       "name": "test:Database",
       "steps": [
@@ -244,6 +252,22 @@
       "steps": [
         {
           "exec": "jest --testNamePattern=DatabaseTestNegitive"
+        }
+      ]
+    },
+    "test:Existing": {
+      "name": "test:Existing",
+      "steps": [
+        {
+          "exec": "jest --testNamePattern=Existing"
+        }
+      ]
+    },
+    "test:ExistingCFTestNegitive": {
+      "name": "test:ExistingCFTestNegitive",
+      "steps": [
+        {
+          "exec": "jest --testNamePattern=ExistingCFTestNegitive"
         }
       ]
     },

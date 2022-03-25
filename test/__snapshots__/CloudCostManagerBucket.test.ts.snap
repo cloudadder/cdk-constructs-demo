@@ -20,6 +20,12 @@ Object {
             "Tierings": Array [],
           },
         ],
+        "PublicAccessBlockConfiguration": Object {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
         "Tags": Array [
           Object {
             "Key": "cloud-cost-manager:check:bucket",

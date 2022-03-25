@@ -1,6 +1,6 @@
 import { App } from 'aws-cdk-lib';
 import { Annotations, Template } from 'aws-cdk-lib/assertions';
-import { TestStackCloudFront, TestStackWithDatabasePositive } from './TestStacks';
+import { TestStackCloudFront } from './TestStacks';
 
 describe('Cloud Cost Manager CloudFront', () => {
   test('(CloudFrontTestPositive): confirm cloud cost management is implemented for database', () => {
@@ -74,7 +74,7 @@ describe('Cloud Cost Manager CloudFront', () => {
 
   test('Snapshot CloudFront', () => {
     const app = new App();
-    const stack = new TestStackWithDatabasePositive(app, 'test');
+    const stack = new TestStackCloudFront(app, 'test');
 
     expect(app.synth().getStackArtifact(stack.artifactId).template).toMatchSnapshot();
   });

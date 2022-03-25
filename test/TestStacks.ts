@@ -4,7 +4,7 @@ import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
 import { Vpc } from 'aws-cdk-lib/aws-ec2';
 import { Version } from 'aws-cdk-lib/aws-lambda';
 import { DatabaseInstance, DatabaseInstanceEngine, SqlServerEngineVersion } from 'aws-cdk-lib/aws-rds';
-import { Bucket, CfnBucket, IntelligentTieringConfiguration } from 'aws-cdk-lib/aws-s3';
+import { BlockPublicAccess, Bucket, CfnBucket } from 'aws-cdk-lib/aws-s3';
 import { CfnInclude } from 'aws-cdk-lib/cloudformation-include';
 import { Construct } from 'constructs';
 import { CloudCostManager } from '../src';
@@ -17,6 +17,7 @@ export class TestStackBucket extends Stack {
       intelligentTieringConfigurations: [{
         name: 'test-tier',
       }],
+      blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
     });
 
     Aspects.of(this).add(new CloudCostManager(this, {
@@ -63,10 +64,12 @@ export class ExistingBucketAfterAddingTiering extends Stack {
     });
 
     const cfnBucket = template.getResource('ExistingBucket') as CfnBucket;
-    const intelligentTieringConfiguration: IntelligentTieringConfiguration = {
-      name: 'test-tier',
-    };
-    cfnBucket.addPropertyOverride('IntelligentTieringConfiguration', intelligentTieringConfiguration);
+    var tiering: Array<CfnBucket.IntelligentTieringConfigurationProperty> = [{
+      id: 'test-tier',
+      status: 'Enabled',
+      tierings: [],
+    }];
+    cfnBucket.intelligentTieringConfigurations = tiering;
 
     Aspects.of(this).add(new CloudCostManager(this, {
       customerName: 'acme-co',

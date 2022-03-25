@@ -8,7 +8,7 @@ describe('Cloud Cost Manager Database', () => {
     var stack = new TestStackWithDatabaseNegitive(app, 'TestStackWithDatabase');
 
     Annotations.fromStack(stack).hasError('/TestStackWithDatabase',
-      'Do not use MSSQL Enterprise Edition, it is too expensive.Multi-AZ is not supported in Non Prodcution Environments.',
+      'Do not use MSSQL Enterprise Edition, it is too expensive.Multi-AZ is not supported in Non Production Environments.',
     );
   });
 

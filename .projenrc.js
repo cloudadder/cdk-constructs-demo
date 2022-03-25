@@ -7,6 +7,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   dependabot: false,
   name: 'cdk-constructs-demo',
   repositoryUrl: 'https://github.com/cloudadder/cdk-constructs-demo',
+  gitignore: ['documentation/**'],
   jestOptions: {
     jestConfig: {
       collectCoverageFrom: ['src/**/*.ts'],
@@ -34,4 +35,16 @@ project.addTask('test:Database', {
   exec: 'jest --testNamePattern=Database',
 });
 
+//CloudFront Tests
+project.addTask('test:CloudFrontTestPositive', {
+  exec: 'jest --testNamePattern=CloudFrontTestPositive',
+});
+
+//Existing CFN Tests
+project.addTask('test:ExistingCFTestNegitive', {
+  exec: 'jest --testNamePattern=ExistingCFTestNegitive',
+});
+project.addTask('test:Existing', {
+  exec: 'jest --testNamePattern=Existing',
+});
 project.synth();

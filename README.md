@@ -1,12 +1,17 @@
 # AWS CDK Constructs Demo
 The purpose of this demo is to show how to use the AWS CDK constructs to create reusable components.
 
-We will focus on the following use cases:
+We will focus on the following use case:
 
-* A business needs to create a way to manage cost control across multiple Deployments and Environments in their AWS accounts.  A construct will be created to tag environments to assit in cost control.  The construct will also check certain resources for typical cost saving patterns, such as S3 Buckets with Intelligent-Tiering enabled.
+* A business needs to create a way to manage cost control across multiple Deployments and Environments in their AWS accounts.  A construct will be created to tag environments to assit in cost control reporting.  The construct will also check certain resources for typical cost saving patterns, such as S3 Buckets with Intelligent-Tiering enabled.
 
 [![build](https://github.com/cloudadder/cdk-constructs-demo/actions/workflows/build.yml/badge.svg)](https://github.com/cloudadder/cdk-constructs-demo/actions/workflows/build.yml)
 [![release](https://github.com/cloudadder/cdk-constructs-demo/actions/workflows/release.yml/badge.svg)](https://github.com/cloudadder/cdk-constructs-demo/actions/workflows/release.yml)
+
+#### Prerequisites
+This demo focuses on the using the most common way to write CDK constructs using the [typescript](https://www.typescriptlang.org/) language.
+
+* install [node.js](https://nodejs.org/en/)
 
 ### Installation and Usage
 
