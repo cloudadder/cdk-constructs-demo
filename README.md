@@ -44,9 +44,24 @@ npm install
 ```
 * To enable github to raise pull requests then in github create a [token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) and then a [secret](https://github.com/Azure/actions-workflow-samples/blob/master/assets/create-secrets-for-GitHub-workflows.md) for the repo called `PROJEN_GITHUB_TOKEN`.
 
+* Update to the latest cdk
+get the latest cdk version from [here](https://docs.aws.amazon.com/cdk/api/v2/) and set the varible below.
+```
+CDK_VERSION = '2.17.0'
+mkdir cdk-stack
+cd cdk-stack
+npx projen new awscdk-app-ts --cdkVersion=$CDK_VERSION
+cd ..
+mkdir cdk-construct
+npx projen new awscdk-app-ts --cdkVersion=$CDK_VERSION
+```
+
+
 #### Links
 * [npmjs](https://www.npmjs.com/package/@cloudadder/cdk-constructs-demo)
 * [cdk constructs.dev](https://constructs.dev/packages/@cloudadder/cdk-constructs-demo)
+* [projen](https://github.com/projen/projen)
+* [github autopilot](https://copilot.github.com/)
 
 #### License
 
