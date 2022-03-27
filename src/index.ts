@@ -22,7 +22,6 @@ export interface CloudCostManagerProps {
    * The name of the product that the stack intended.
    * e.g. ```'front-end'```
    */
-  //  readonly productName: string;
 }
 
 export class CloudCostManager implements IAspect {
@@ -35,7 +34,6 @@ export class CloudCostManager implements IAspect {
     this.props = props;
     Tags.of(stack).add('cloud-cost-manager:customer-name', props.customerName);
     Tags.of(stack).add('cloud-cost-manager:env-name', props.envName);
-    //Tags.of(stack).add('cloud-cost-manager:product-name', props.productName);
   }
 
   visit(node: IConstruct): void {
