@@ -17,11 +17,6 @@ export interface CloudCostManagerProps {
    * e.g. ```'production'```
    */
   readonly envName: string;
-
-  /**
-   * The name of the product that the stack intended.
-   * e.g. ```'front-end'```
-   */
 }
 
 export class CloudCostManager implements IAspect {
