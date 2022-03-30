@@ -31,7 +31,7 @@ describe('Cloud Cost Manager Database', () => {
         },
         {
           Key: 'cloud-cost-manager:env-name',
-          Value: 'production',
+          Value: 'non-production',
         },
       ],
     });

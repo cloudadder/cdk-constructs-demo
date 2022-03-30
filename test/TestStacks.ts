@@ -112,7 +112,7 @@ export class TestStackWithDatabasePositive extends Stack {
 
     Aspects.of(this).add(new CloudCostManager(this, {
       customerName: 'acme-co',
-      envName: 'production',
+      envName: 'non-production',
     }));
   }
 }

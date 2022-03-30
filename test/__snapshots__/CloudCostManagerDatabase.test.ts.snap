@@ -57,7 +57,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
         ],
         "VPCSecurityGroups": Array [
@@ -99,7 +99,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
         ],
       },
@@ -135,7 +135,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
         ],
         "VpcId": Object {
@@ -162,7 +162,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
         ],
       },
@@ -181,7 +181,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
           Object {
             "Key": "Name",
@@ -200,7 +200,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
           Object {
             "Key": "Name",
@@ -231,7 +231,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
           Object {
             "Key": "Name",
@@ -282,7 +282,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
           Object {
             "Key": "Name",
@@ -316,7 +316,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
           Object {
             "Key": "Name",
@@ -367,7 +367,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
           Object {
             "Key": "Name",
@@ -405,7 +405,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
           Object {
             "Key": "Name",
@@ -433,7 +433,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
           Object {
             "Key": "Name",
@@ -452,7 +452,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
           Object {
             "Key": "Name",
@@ -503,7 +503,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
           Object {
             "Key": "Name",
@@ -541,7 +541,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
           Object {
             "Key": "Name",
@@ -569,7 +569,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
           Object {
             "Key": "Name",
@@ -588,7 +588,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
           Object {
             "Key": "Name",
@@ -639,7 +639,7 @@ Object {
           },
           Object {
             "Key": "cloud-cost-manager:env-name",
-            "Value": "production",
+            "Value": "non-production",
           },
           Object {
             "Key": "Name",
