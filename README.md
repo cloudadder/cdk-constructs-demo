@@ -66,4 +66,3 @@ npx projen new awscdk-app-ts --cdkVersion=$CDK_VERSION
 #### License
 
 Distributed under the [Apache-2.0](./LICENSE) license.
-
