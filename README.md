@@ -47,7 +47,7 @@ npm install
 * Update to the latest cdk
 get the latest cdk version from [here](https://docs.aws.amazon.com/cdk/api/v2/) and set the varible below.
 ```
-CDK_VERSION = '2.17.0'
+CDK_VERSION=2.20.0
 mkdir cdk-stack
 cd cdk-stack
 npx projen new awscdk-app-ts --cdkVersion=$CDK_VERSION
